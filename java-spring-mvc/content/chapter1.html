@@ -1,0 +1,235 @@
+<header>
+    <h1 class="heading">Hướng dẫn đặt dự án Spring</h1>
+</header>
+
+<p class="text-warning">
+    Lưu ý: Có 1 cách setup project Spring Bằng VS Code(Khi mọi người cài Java
+    Extendsion Pack) <br />
+    nhưng tớ không khuyến nghị.Đơn giản là việc chúng ta tạo từ trang chủ của
+    trang <a href="https://spring.io/quickstart" target="_blank">Spring.oi</a> sẽ
+    đỡ rắc rối và ít khi xảy ra bugs
+</p>
+
+<section>
+    <p style="font-size: 2rem">
+        Vô trang
+        <a href="https://start.spring.io/ " target="_blank">https://start.spring.io/</a>
+        sẽ có dao diện thế này
+    </p>
+    <img src="img/chapter1/1.png" alt="" width="105%" />
+</section>
+
+<h1>Spring Initializr - Giải thích giao diện</h1>
+
+<section>
+    <h2>1. Project</h2>
+    <p>Phần này cho phép bạn chọn kiểu dự án mà bạn muốn tạo:</p>
+    <ul>
+        <li>
+            <strong>Gradle - Groovy:</strong> Sử dụng Groovy làm ngôn ngữ cho Gradle.
+        </li>
+        <li>
+            <strong>Gradle - Kotlin:</strong> Sử dụng Kotlin làm ngôn ngữ cho Gradle.
+        </li>
+        <li><strong>Maven:</strong> Chọn Maven để quản lý và build dự án.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>2. Spring Boot</h2>
+    <p>
+        Cho phép bạn chọn phiên bản của Spring Boot. Phiên bản ổn định hoặc
+        <em>snapshot</em> có thể được chọn, ví dụ:
+    </p>
+    <ul>
+        <li>
+            <strong>3.4.2 (SNAPSHOT):</strong> Phiên bản thử nghiệm mới nhất.(Tốt nhất
+            đừng ấn vào vì nó đang thử nghiệm)
+        </li>
+        <li><strong>3.4.1:</strong> Phiên bản ổn định đã phát hành.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>3. Project Metadata</h2>
+    <p>Các thông tin cơ bản cho dự án của bạn, bao gồm:</p>
+    <ul>
+        <li>
+            <strong>Group:</strong> Tên nhóm tổ chức (thường theo định dạng tên miền
+            ngược, ví dụ: <code>com.example</code>).
+        </li>
+        <li>
+            <strong>Artifact:</strong> Tên file đầu ra (ví dụ: <code>demo</code>).
+        </li>
+        <li><strong>Name:</strong> Tên dự án hiển thị.</li>
+        <li><strong>Description:</strong> Mô tả ngắn gọn về dự án.</li>
+        <li><strong>Package name:</strong> Tên package Java tự động được tạo.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>4. Packaging</h2>
+    <p>Lựa chọn cách đóng gói ứng dụng:</p>
+    <ul>
+        <li><strong>Jar:</strong> File thực thi độc lập.</li>
+        <li>
+            <strong>War:</strong> File triển khai trên máy chủ ứng dụng (Tomcat,
+            Jetty,...).
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>5. Java Version</h2>
+    <p>
+        Chọn phiên bản Java sẽ được sử dụng để xây dựng dự án. Các phiên bản phổ
+        biến:
+    </p>
+    <ul>
+        <li>
+            <strong>Java 17:</strong> Phiên bản LTS hiện tại, phù hợp cho các ứng dụng
+            doanh nghiệp.
+        </li>
+        <li>
+            <strong>Java 21:</strong> Phiên bản mới với nhiều tính năng cải tiến.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>6. Dependencies</h2>
+    <p>
+        Cho phép bạn thêm các thư viện hoặc module vào dự án, ví dụ: Spring Web,
+        Spring Data JPA, Spring Security.
+    </p>
+    <p>
+        Nhấn nút <strong>Add Dependencies...</strong> để chọn các thư viện bạn cần.
+    </p>
+</section>
+
+<section>
+    <h2>7. Nút thao tác</h2>
+    <ul>
+        <li><strong>Generate:</strong> Tải về dự án đã được tạo cấu trúc.</li>
+        <li><strong>Explore:</strong> Xem trước dự án trực tuyến.</li>
+    </ul>
+</section>
+
+<div>
+    ==================================================================================================
+</div>
+<header>
+    <h1 class="heading">Hello World với Spring</h1>
+    <p>
+        Việc này đơn giản!! Sau khi tạo xong , mở dự án với VS Code(đợi 1 chút, cho
+        IDE load project)
+    </p>
+
+    <ol>
+        <li>
+            <h3>
+                Tạo file controller/HelloController.java như hình (cứ làm đi chương sau
+                mình sẽ giải thích)
+                <p class="text-danger">
+                    Lưu ý: folder controller phải cùng cấp với file Application.java ấy
+                    nhé ( không tí lỗi đỏ mắt)
+                </p>
+            </h3>
+
+            <img src="img/chapter1/3.png" alt="" width="105%" />
+
+            <p class="code">code file HelloController.java :</p>
+
+            <div class="code-block">
+                <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+                <pre>
+  @Controller
+  public class HelloController {
+  
+      @GetMapping("/")
+      @ResponseBody
+      public String requestMethodName() {
+          System.out.println("ok");
+          return "ok";
+      }
+  
+  }
+  
+    </pre>
+            </div>
+            <p class="code">Đồng thời hãy sửa file Application.java :</p>
+
+            <div class="code-block">
+                <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+                <pre>
+  package com.minh.demo;
+  
+  import org.springframework.boot.SpringApplication;
+  import org.springframework.boot.autoconfigure.SpringBootApplication;
+  
+  // @SpringBootApplication
+  @SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
+  public class DemoApplication {
+  
+      public static void main(String[] args) {
+          SpringApplication.run(DemoApplication.class, args);
+      }
+  
+  }
+  
+  
+    </pre>
+            </div>
+        </li>
+
+        <li>
+            <p>Các fen nghĩ chạy được rồi hả ? Không không :v Config nốt cái này</p>
+            <img src="img/chapter1/4.png" alt="" width="105%" />
+
+            <div class="demo-section">
+                <p class="code">Cài Đặt file :application.properties</p>
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+                    <pre>
+
+              spring.mvc.trailing-slash-match=true
+  
+              # config database
+  spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name  #your_database_name : tên database
+  spring.datasource.username=your_username  #username của db server 
+  spring.datasource.password=your_password  #password
+  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+  spring.jpa.hibernate.ddl-auto=update
+  
+  </pre>
+                </div>
+            </div>
+        </li>
+        <li>
+            <h2>Ok chạy thôi</h2>
+
+            <img src="img/chapter1/2.png" alt="" width="105%" />
+            <p>Cách 2: chúng ta sẽ chạy với file mvw (không cần tới IDE)</p>
+            <div class="code-block">
+                <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+                <pre>.\mvnw spring-boot:run</pre>
+            </div>
+            <p>
+                Thường thì lệnh trên sẽ chạy được cả Mac lẫn Win.Nếu win không chạy được
+                hãy thử
+            </p>
+            <div class="code-block">
+                <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+                <pre> .\mvnw.cmd spring-boot:run </pre>
+            </div>
+        </li>
+
+        <li>
+            <p>Truy cập localhost:8080/ nhé! :</p>
+            <p>Và kết quả</p>
+            <img src="img/chapter1/5.png" alt="" width="105%" />
+        </li>
+    </ol>
+</header>
+
+<h3 class="text-danger">Xong hết rồi thì học thôi !!!</h3>
