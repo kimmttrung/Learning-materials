@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> React</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+</head>
+
+<body>
+    <div class="menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">React</div>
+        <input type="text" class="search-bar" placeholder="Tìm kiếm..." />
+        <nav id="nav-container">
+            <!-- Navigation items will be loaded from navigation.json -->
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <div id="content" class="content-section">
+            <h1 class="welcome-text" style="display: inline"></h1>
+
+            <h2 class="author" id="author"></h2>
+            <h2 class="author" id="info"></h2>
+
+            <p class="instruction">
+                Bắt đầu bằng cách chọn một chương từ menu bên trái.
+            </p>
+        </div>
+    </main>
+
+    <script src="./js/scripts.js"></script>
+    <script>
+        // Hiệu ứng Typed.js cho tiêu đề chào mừng
+
+        const runAuthor = () => {
+            let textAuthor = "Tác giả: Mai Trung";
+
+            var typed = new Typed("#author", {
+                strings: [textAuthor],
+                typeSpeed: 20,
+                showCursor: false,
+                onComplete: runInfo,
+            });
+        };
+
+        const runInfo = () => {
+            let textInfo =
+                " Facebook: <a   href='https://www.facebook.com/trung.mai.818747?locale=vi_VN'   target='_blank'   >Mai Trung</a>";
+            var typed = new Typed("#info", {
+                strings: [textInfo],
+                typeSpeed: 20,
+                showCursor: false,
+                onComplete: runAnime,
+            });
+        };
+
+        function runTypedSequence() {
+            let textWelcome =
+                "Chào mừng đến với khoá học <span class ='spring-text'>React</span>  cơ bản.";
+            var typed = new Typed(".welcome-text", {
+                strings: [textWelcome],
+                typeSpeed: 15,
+                showCursor: false,
+                onComplete: runAuthor,
+            });
+        }
+
+        runTypedSequence();
+    </script>
+</body>
+
+</html>

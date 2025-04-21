@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tài liệu học tập</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --background: #e3e3e3;
+            --card-bg: rgba(47, 0, 255, 0.03);
+            --text: #000000;
+            --accent1: #25db8c;
+            --accent2: #141217;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            padding: 4rem 2rem;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--accent1);
+            filter: blur(150px);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .header h1 {
+            font-family: "Clash Display", sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 2.5rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0%,
+                    rgba(255, 255, 255, 0.1),
+                    transparent 40%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transform: translateZ(30px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-title {
+            font-family: "Clash Display", sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            transform: translateZ(20px);
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+            transform: translateZ(15px);
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            transform: translateZ(25px);
+        }
+
+        .tech-tag {
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--accent2);
+            filter: blur(200px);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .glow-1 {
+            top: 20%;
+            left: -20%;
+        }
+
+        .glow-2 {
+            bottom: -10%;
+            right: -10%;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent1);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.7;
+            display: none;
+        }
+
+        /* Search Animation */
+        @keyframes searchFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-container {
+            animation: searchFadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Tài liệu học tập</h1>
+            <p>By Mai Trung</p>
+        </div>
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">Question and Answer</div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Tìm kiếm..." id="searchInput" />
+            <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </div>
+
+        <div class="projects-grid">
+            <a href="React" class="project-link">
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#EFEFEF">
+                                <path
+                                    d="M256 398.8c-11.8 5.1-23.4 9.7-34.9 13.5c16.7 33.8 31 35.7 34.9 35.7s18.1-1.9 34.9-35.7c-11.4-3.9-23.1-8.4-34.9-13.5zM446 256c33 45.2 44.3 90.9 23.6 128c-20.2 36.3-62.5 49.3-115.2 43.2c-22 52.1-55.6 84.8-98.4 84.8s-76.4-32.7-98.4-84.8c-52.7 6.1-95-6.8-115.2-43.2C21.7 346.9 33 301.2 66 256c-33-45.2-44.3-90.9-23.6-128c20.2-36.3 62.5-49.3 115.2-43.2C179.6 32.7 213.2 0 256 0s76.4 32.7 98.4 84.8c52.7-6.1 95 6.8 115.2 43.2c20.7 37.1 9.4 82.8-23.6 128zm-65.8 67.4c-1.7 14.2-3.9 28-6.7 41.2c31.8 1.4 38.6-8.7 40.2-11.7c2.3-4.2 7-17.9-11.9-48.1c-6.8 6.3-14 12.5-21.6 18.6zm-6.7-175.9c2.8 13.1 5 26.9 6.7 41.2c7.6 6.1 14.8 12.3 21.6 18.6c18.9-30.2 14.2-44 11.9-48.1c-1.6-2.9-8.4-13-40.2-11.7zM290.9 99.7C274.1 65.9 259.9 64 256 64s-18.1 1.9-34.9 35.7c11.4 3.9 23.1 8.4 34.9 13.5c11.8-5.1 23.4-9.7 34.9-13.5zm-159 88.9c1.7-14.3 3.9-28 6.7-41.2c-31.8-1.4-38.6 8.7-40.2 11.7c-2.3 4.2-7 17.9 11.9 48.1c6.8-6.3 14-12.5 21.6-18.6zM110.2 304.8C91.4 335 96 348.7 98.3 352.9c1.6 2.9 8.4 13 40.2 11.7c-2.8-13.1-5-26.9-6.7-41.2c-7.6-6.1-14.8-12.3-21.6-18.6zM336 256a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zm-80-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                            </svg>
+                        </div>
+                        <h3 class="project-title">React</h3>
+                        <p class="project-description">Fontend</p>
+
+                        <div class="project-tech">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Nodejs</span>
+                            <span class="tech-tag">Reactjs</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="java-spring-mvc" class="project-link">
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
+                                <path
+                                    d="M214-175.33q-44.06-45-69.03-104T120-400.67q0-69.66 25-130.5Q170-592 222-644q35-35 86.83-59.33 51.84-24.34 122.34-38.17 70.5-13.83 160-17.17 89.5-3.33 199.5 4.67 8 107.33 5.33 196.67-2.67 89.33-16.17 160.66-13.5 71.34-38 124.71-24.5 53.38-60.5 89.29Q629.67-131 570.5-105.5T446-80q-67.67 0-126.67-24.17-59-24.16-105.33-71.16Zm106-5.34q26.33 17 58.5 25.5t67.45 8.5q50.72 0 99.05-20.83t89.33-62.5q24-24 42.84-63.83 18.83-39.84 31.33-97Q721-448 726-522.83q5-74.84.67-169.17-79-2-149.17 1.17-70.17 3.16-128.5 14.16t-104 30q-45.67 19-74.67 48.67-43 43.67-63.33 90.33Q186.67-461 186.67-414q0 51.67 21.16 101.5 21.17 49.83 46.84 77.17 49.33-92 121.66-168.5 72.34-76.5 158.34-122.17-82 71-135.84 155.83Q345-285.33 320-180.67Zm0 0Zm0 0Z" />
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Java Spring MVC</h3>
+                        <p class="project-description">Backend</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Java Spring</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="java-spring-restful" class="project-link">
+                <div class="project-card">
+                    <div class="project-content">
+                        <div class="project-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
+                                <path
+                                    d="M214-175.33q-44.06-45-69.03-104T120-400.67q0-69.66 25-130.5Q170-592 222-644q35-35 86.83-59.33 51.84-24.34 122.34-38.17 70.5-13.83 160-17.17 89.5-3.33 199.5 4.67 8 107.33 5.33 196.67-2.67 89.33-16.17 160.66-13.5 71.34-38 124.71-24.5 53.38-60.5 89.29Q629.67-131 570.5-105.5T446-80q-67.67 0-126.67-24.17-59-24.16-105.33-71.16Zm106-5.34q26.33 17 58.5 25.5t67.45 8.5q50.72 0 99.05-20.83t89.33-62.5q24-24 42.84-63.83 18.83-39.84 31.33-97Q721-448 726-522.83q5-74.84.67-169.17-79-2-149.17 1.17-70.17 3.16-128.5 14.16t-104 30q-45.67 19-74.67 48.67-43 43.67-63.33 90.33Q186.67-461 186.67-414q0 51.67 21.16 101.5 21.17 49.83 46.84 77.17 49.33-92 121.66-168.5 72.34-76.5 158.34-122.17-82 71-135.84 155.83Q345-285.33 320-180.67Zm0 0Zm0 0Z" />
+                            </svg>
+                        </div>
+                        <h3 class="project-title">Java Spring Restful</h3>
+                        <p class="project-description">Backend</p>
+
+                        <div class="project-tech">
+                            <span class="tech-tag">Java </span>
+                            <span class="tech-tag">Java Spring</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+
+    <script>
+        const aTitle = document.querySelectorAll(".project-link");
+        aTitle.forEach((a) => {
+            let title = a.querySelector(".project-title").textContent;
+            //  console.log(title);
+            a.setAttribute("data-title", title);
+        });
+        // Particles.js Config
+        particlesJS("particles-js", {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800,
+                    },
+                },
+                color: {
+                    value: "#ffffff",
+                },
+                shape: {
+                    type: "circle",
+                },
+                opacity: {
+                    value: 0.2,
+                    random: true,
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.1,
+                    width: 1,
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                },
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab",
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push",
+                    },
+                    resize: true,
+                },
+            },
+            retina_detect: true,
+        });
+
+        // 3D Card Effect
+        document.querySelectorAll(".project-card").forEach((card) => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const xRotation = ((y - rect.height / 2) / rect.height) * -20;
+                const yRotation = ((x - rect.width / 2) / rect.width) * 20;
+
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${xRotation}deg)
+                    rotateY(${yRotation}deg)
+                    scale3d(1.05, 1.05, 1.05)
+                `;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform =
+                    "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+            });
+        });
+
+        // Initial Animation
+        anime({
+            targets: ".project-card",
+            translateY: [100, 0],
+            opacity: [0, 1],
+            duration: 1500,
+            delay: anime.stagger(200),
+            easing: "easeOutExpo",
+        });
+
+        anime({
+            targets: ".header",
+            translateY: [-50, 0],
+            opacity: [0, 1],
+            duration: 2000,
+            easing: "easeOutExpo",
+        });
+
+        const searchInput = document.getElementById("searchInput");
+        const projectCards = document.querySelectorAll(".project-link");
+        const noResults = document.getElementById("noResults");
+
+        searchInput.addEventListener("input", function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            let hasResults = false;
+
+            projectCards.forEach((card) => {
+                const title = card.getAttribute("data-title").toLowerCase();
+                const matches = title.includes(searchTerm);
+
+                // Animate cards
+                if (matches) {
+                    card.style.display = "block";
+                    anime({
+                        targets: card,
+                        scale: [0.95, 1],
+                        opacity: [0.5, 1],
+                        duration: 300,
+                        easing: "easeOutCubic",
+                    });
+                    hasResults = true;
+                } else {
+                    anime({
+                        targets: card,
+                        scale: [1, 0.95],
+                        opacity: [1, 0],
+                        duration: 300,
+                        easing: "easeOutCubic",
+                        complete: function () {
+                            card.style.display = "none";
+                        },
+                    });
+                }
+            });
+
+            // Show/hide no results message
+            if (!hasResults && searchTerm !== "") {
+                noResults.style.display = "block";
+                anime({
+                    targets: noResults,
+                    opacity: [0, 1],
+                    translateY: [-20, 0],
+                    duration: 300,
+                    easing: "easeOutCubic",
+                });
+            } else {
+                noResults.style.display = "none";
+            }
+        });
+
+        // Add focus animation to search input
+        searchInput.addEventListener("focus", () => {
+            anime({
+                targets: ".search-container",
+                scale: [1, 1.02],
+                duration: 300,
+                easing: "easeOutCubic",
+            });
+        });
+
+        searchInput.addEventListener("blur", () => {
+            anime({
+                targets: ".search-container",
+                scale: [1.02, 1],
+                duration: 300,
+                easing: "easeOutCubic",
+            });
+        });
+
+        // Initialize search animation
+        anime({
+            targets: ".search-container",
+            opacity: [0, 1],
+            translateY: [-20, 0],
+            duration: 800,
+            easing: "easeOutExpo",
+            delay: 300,
+        });
+    </script>
+</body>
+
+</html>

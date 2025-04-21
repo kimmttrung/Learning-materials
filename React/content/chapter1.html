@@ -1,0 +1,66 @@
+<h1 class="heading">Hello World</h1>
+<p class="text-danger">Hãy đảm bảo cho mình mọi người đã cài xong dự án reactjs</p>
+<section>
+    <p class="text-warning">Giờ hãy npm run dev lên nào.</p>
+    <!-- <img src="img/chap1/1.png"> -->
+    <p class="text-info">Hãy thử sửa đoạn text bất kì , lưu file lại và </p>
+
+    <!-- <img src="img/chap1/2.png"> -->
+    <p>Trông như live server ấy nhỉ, lưu file cái là fontend tự render lại ngon ơ :v</p>
+    <p>Thư viện reactjs đã cung cấp cơ chết <b>hot reloanding</b>: mỗi lần ta lưu file code reactjs tự dịch code tự
+        render lại dao diện.</p>
+</section>
+<section>
+    <h2 class="heading">Reactjs và cấu trúc dự án</h2>
+    <p class="text-info">React là một thư viện JavaScript front-end mã nguồn mở và miễn phí để xây dựng giao diện người
+        dùng dựa trên các thành phần UI riêng lẻ</p>
+    <p class="text-info"> nhớ nhé React là <b>thư viện</b> cũng như thư viện Jquery nhưng nó xịn hơn rất nhiều</p>
+    <p class="text-danger">Đừng ông nào thấy nó xịn quá xong bảo nó là framework nhé , người ta cười cho đấy :v</p>
+    <h3>cấu trúc dự án</h3>
+    <!-- <img src="img/chap1/3.png"> -->
+
+
+    <ol>
+        <li>
+            node_modules: lưu trữ thư viện cài đặt
+        </li>
+        <li>public: lưu image ,css ,js (những cái ta muốn cho ai cũng có thể truy cập)</li>
+        <li>src : nơi gõ code</li>
+        <!-- <img src="img/chap1/4.png"> -->
+        <li>file có đuôi <b>.jsx</b>(code react với javascripts) <b>.tsx</b>(code react với typescript)</li>
+    </ol>
+</section>
+<section>
+    <h2 class="heading">Reactjs , cơ chế hoạt dộng với Brower</h2>
+    <p>Về cơ bản Brower của chúng ta nó không hiểu code react đâu mà nó chỉ hiểu html css js thôi nên cần phải có trình
+        dịch code (ở đây là vite) và thường thì ta sẽ chạy code ở 2 chế độ </p>
+    <ol>
+        <li>chế độ developemnt (npm run dev)
+            <p>dev code (ở đây là javascript)</p>
+            <p>compile( dịch code) và lưu trong memory</p>
+            <p>Thực ra về bản chất là render ra html css js vào ram nên load cực nhanh sau mỗi lần ta sửa code.</p>
+        </li>
+        <li>chế độ production
+            <p>Code xog rồi , ta muốn build lên chạy thực tế</p>
+            <p>compile( dịch code) và lưu cache của Brower </p>
+
+            <p>Chạy với 2 lệ
+            <ul>
+                <li>npm run build</li>
+                <li>npm run preview</li>
+                <p>Thực ra về bản chất là render hẳn sang html css js luôn nên khi chạy lên sẽ load cực nhanh nếu chạy
+                    thực tế .</p>
+            </ul>
+            </p>
+
+        </li>
+        <li>ưu và nhược : chat gpt :v</li>
+    </ol>
+
+    <h3>React là Client Side Rendering (CSR)</h3>
+    <ul>
+        <li>SSR(Server side rendering): Mọi công việc render để tạo ra dữ liệu được xử lí ở phía server(backend) </li>
+        <li>CSR(Client side rendering): Y như thế nhưng xử lí bên Client(fontend)</li>
+        <li>Về bản chất React nó cũng chỉ là HTML CSS JS, fontend rõ ràng :v </li>
+    </ul>
+</section>
