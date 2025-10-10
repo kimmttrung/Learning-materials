@@ -1,0 +1,255 @@
+/* Giữ nguyên phần CSS từ code trước */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+:root {
+    --background: #ffffff;
+    --text: #000000;
+    --sidebar: #f1f1f1;
+    --hover: #e0e0e0;
+}
+
+[data-theme="dark"] {
+    --background: #1a1a1a;
+    --text: #ffffffc7;
+    --sidebar: #2d2d2d;
+    --hover: #3d3d3d;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: var(--sidebar);
+    padding: 2rem;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    flex: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-left: 250px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.nav-item {
+    padding: 0.8rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-item:hover {
+    background: var(--hover);
+}
+
+.theme-switch {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: var(--hover);
+    cursor: pointer;
+}
+
+.content-section {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-bar {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--hover);
+    background: var(--background);
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text);
+    opacity: 0.7;
+}
+
+.nav-item.active {
+    color: rgb(214, 20, 162);
+}
+
+@media (max-width: 768px) {
+    .sidebar.active {
+        transform: translateX(-100%);
+    }
+
+    .sidebar {
+        transition: transform 0.3s ease;
+        transform: translateX(0);
+
+        z-index: 1000;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        background: var(--background);
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+}
+
+h1,
+p,
+h2,
+ol,
+ul {
+    margin: 0.5rem;
+    line-height: 1.6;
+}
+
+.code {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.heading {
+    text-align: c;
+    margin-top: 0.5em;
+}
+
+.text-danger {
+
+    font-weight: bold;
+    /* color text-danger bootstrap */
+    color: rgb(231, 103, 103);
+}
+
+.text-warning {
+    font-weight: bold;
+    color: rgb(69, 128, 245);
+}
+
+.text-info {
+    font-weight: bold;
+    color: #09bba3;
+}
+
+ol {
+    text-align: start;
+}
+
+li {
+    margin: 1.2rem;
+}
+
+.code-block {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+a {
+    color: #22c55e;
+    /* Màu mặc định */
+    font-weight: bold;
+    transition: color 0.3s ease;
+    /* Hiệu ứng chuyển màu mượt */
+}
+
+a:hover {
+    color: #ec4899;
+    /* Màu khi hover */
+    text-decoration: underline;
+    /* Gạch chân khi hover */
+}
+
+a:active {
+    color: #d9534f;
+    /* Màu khi click */
+}
+
+.welcome-text {
+    color: #ff00bf;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    opacity: 0;
+}
+
+.spring-text {
+    color: #61DAFB;
+
+}
+
+.author {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+}
+
+.instruction {
+    font-size: 1.2rem;
+    opacity: 0;
+}

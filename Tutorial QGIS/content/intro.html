@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Khóa học: Phân loại lớp phủ đất từ dữ liệu viễn thám</title>
+    <style>
+        :root {
+            --bg: #f7fafc;
+            --card: #ffffff;
+            --accent: #0f172a;
+            --muted: #475569
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--bg);
+            color: var(--accent);
+            margin: 0;
+            padding: 24px
+        }
+
+        .page {
+            max-width: 980px;
+            margin: 20px auto
+        }
+
+        header {
+            background: linear-gradient(90deg, #e6f0ff, #f8fafc);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06)
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px
+        }
+
+        .meta {
+            color: var(--muted);
+            margin-top: 6px;
+            font-size: 13px
+        }
+
+        .card {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 16px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04)
+        }
+
+        h2 {
+            margin-top: 0
+        }
+
+        pre {
+            background: #0b1220;
+            color: #e6eef8;
+            padding: 12px;
+            border-radius: 8px;
+            overflow: auto
+        }
+
+        ul,
+        ol {
+            margin-left: 18px
+        }
+
+        .note {
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            padding: 10px;
+            border-radius: 6px;
+            color: #7c2d12
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        a {
+            color: #0b6ef6
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <h1>Khóa học: Xây dựng mô hình phân loại lớp phủ đất từ dữ liệu viễn thám</h1>
+            <div class="meta">Mục tiêu, dữ liệu, công cụ và quy trình xử lý — Tài liệu tham khảo cho bài tập / dự án
+            </div>
+        </header>
+
+        <section class="card">
+            <h2>I. Mục tiêu</h2>
+            <p>
+                Mục tiêu của khóa học này là xây dựng một mô hình phân loại lớp phủ đất (land cover classification) từ
+                dữ liệu viễn thám, nhằm tự động nhận diện và phân biệt các loại hình sử dụng đất như đất ở, ruộng lúa,
+                cây trồng, rừng, mặt nước... Các nội dung chính bao gồm:
+            </p>
+            <ul>
+                <li>Tìm hiểu và xử lý dữ liệu viễn thám</li>
+                <li>Xây dựng mô hình học máy để phân loại lớp phủ đất dựa trên các đặc trưng phổ của ảnh</li>
+                <li>Đánh giá độ chính xác của mô hình thông qua các chỉ số</li>
+                <li>Trực quan hóa kết quả phân loại bằng bản đồ màu hiển thị từng loại lớp phủ đất</li>
+                <li>Phân tích các hạn chế tồn tại và đề xuất phương hướng cải thiện</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>II. Tìm hiểu và xử lý dữ liệu viễn thám</h2>
+
+            <h3>1. Lấy dữ liệu viễn thám</h3>
+            <p>Trong bài này, sử dụng 2 file ảnh để xử lý dữ liệu: ảnh lớp phủ đã được phân loại (reference / labeled)
+                và bản đồ vùng (shapefile) để cắt chọn khu vực train/test.</p>
+
+            <ul>
+                <li>
+                    <strong>Ảnh dữ liệu lớp phủ đã phân loại</strong>
+                    — tải từ trang của JAXA (ALOS LULC):
+                    <a href="https://www.eorc.jaxa.jp/ALOS/en/dataset/lulc/lulc_vnm_v2109_e.htm"
+                        target="_blank">https://www.eorc.jaxa.jp/ALOS/en/dataset/lulc/lulc_vnm_v2109_e.htm</a>
+                </li>
+                <li>
+                    <strong>Bản đồ vùng (.shp)</strong>
+                    — dùng dữ liệu khu vực Hà Nội để train; nếu chưa có, có thể tải từ SimpleMaps GIS: <a
+                        href="https://simplemaps.com/gis/country/vn#all"
+                        target="_blank">https://simplemaps.com/gis/country/vn#all</a>
+                </li>
+                <li>
+                    <strong>Ảnh chứa các phổ (bands)</strong>
+                    — ảnh cho vùng Hà Nội (dùng để train) và vùng Hải Phòng (dùng để dự đoán) có thể lấy từ Earth Engine
+                    datasets: <a href="https://developers.google.com/earth-engine/datasets"
+                        target="_blank">https://developers.google.com/earth-engine/datasets</a>
+                </li>
+            </ul>
+
+            <h3>2. Ứng dụng xử lý dữ liệu</h3>
+            <p>Ở phần xử lý sơ bộ và kiểm tra dữ liệu, sử dụng các công cụ sau:</p>
+            <ul>
+                <li>
+                    <strong>QGIS</strong>: dùng để mở shapefile, lấy các polygon khu vực quan tâm, xuất các điểm ngẫu
+                    nhiên (ví dụ 1000 điểm) để làm tập dữ liệu huấn luyện và kiểm tra
+                </li>
+                <li>
+                    <strong>Google Earth Pro</strong>: kiểm tra trực quan các polygon/nhãn trên ảnh vệ tinh thực tế để
+                    xác nhận nhãn lớp phủ có phù hợp với năm hiện tại hay không
+                </li>
+            </ul>
+
+            <div class="note">
+                Lưu ý: Quy trình này thường có bước kiểm tra bằng tay (manual verification) vì ảnh lớp phủ có thể cũ
+                hoặc bị phân loại sai — cần lọc/gắn nhãn lại một số điểm trước khi đưa vào mô hình
+            </div>
+
+        </section>
+
+        <section class="card">
+            <h2>III. Quy trình tổng quát triển khai mô hình</h2>
+            <ol>
+                <li><strong>Chuẩn hóa dữ liệu</strong>: cắt ảnh theo shapefile, lấy các band cần thiết, xử lý giá trị
+                    thiếu, chuẩn hóa/scale giá trị phổ</li>
+                <li><strong>Tạo nhãn</strong>: ánh xạ lớp phủ từ file LULC sang nhãn rút gọn (ví dụ: 0=đất ở, 1=ruộng
+                    lúa, 2=cây trồng, 3=rừng, 4=mặt nước,...)</li>
+                <li><strong>Trích đặc trưng</strong>: NDVI, NDWI, các chỉ số phổ khác; hoặc dùng trực tiếp patch ảnh để
+                    huấn luyện mô hình CNN</li>
+                <li><strong>Chọn mô hình</strong>: từ Random Forest / XGBoost cho đến CNN (U-Net, ResNet-based) tùy kích
+                    thước dữ liệu và mục tiêu (pixel-wise vs patch-wise)
+                <li><strong>Huấn luyện & validation</strong>: chia train/val/test, dùng cross-validation nếu cần</li>
+                <li><strong>Đánh giá</strong>: accuracy, precision, recall, F1-score, confusion matrix, IoU
+                    (Intersection over Union) đối với bài toán phân lớp ảnh
+                <li><strong>Trực quan hóa</strong>: biến kết quả phân lớp thành bản đồ màu, overlay lên ảnh vệ tinh để
+                    đánh giá bằng mắt
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>IV. Đo lường & chỉ số đánh giá</h2>
+            <ul>
+                <li><strong>Accuracy</strong>: tỉ lệ dự đoán đúng tổng thể</li>
+                <li><strong>Precision / Recall / F1</strong>: cho từng lớp để thấy lớp nào bị nhầm nhiều</li>
+                <li><strong>Confusion matrix</strong>: kiểm tra mẫu bị nhầm lẫn giữa các lớp</li>
+                <li><strong>IoU / mIoU</strong>: quan trọng với bài toán phân lớp ảnh làm thước đo chồng lấp</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>V. Trực quan hóa kết quả</h2>
+            <p>Một số cách trực quan hóa:</p>
+            <ul>
+                <li>Tạo bản đồ màu (color map) cho từng lớp và xuất ra GeoTIFF / PNG</li>
+                <li>Overlay kết quả lên ảnh vệ tinh gốc để so sánh trực quan</li>
+                <li>Sử dụng QGIS để hiển thị shapefile kết quả và kiểm tra chất lượng</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>VI. Hạn chế và hướng cải thiện</h2>
+            <ul>
+                <li>Ảnh lớp phủ có thể lỗi thời hoặc phân loại sai — cần kiểm tra thủ công và cập nhật nhãn</li>
+                <li>Độ phân giải không đủ cao sẽ gây nhầm lẫn giữa các lớp nhỏ (ví dụ: đường, ao nhỏ)</li>
+                <li>Đa dạng mùa vụ và cây trồng làm thay đổi đặc trưng phổ — cân nhắc dùng dữ liệu đa thời điểm</li>
+                <li>Kết hợp dữ liệu SAR (radar) hoặc dữ liệu đa thời gian (time-series) để cải thiện độ chính xác</li>
+            </ul>
+        </section>
+
+        <footer class="small" style="margin-top:16px">Nguồn dữ liệu gợi ý: JAXA ALOS LULC, Google Earth Engine datasets,
+            SimpleMaps GIS — Sử dụng QGIS & Google Earth Pro cho phần xử lý thủ công</footer>
+    </div>
+</body>
+
+</html>

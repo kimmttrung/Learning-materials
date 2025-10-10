@@ -1,0 +1,61 @@
+<h1 class="heading">Hướng dẫn cài đặt và sử dụng gdalinfo</h1>
+
+<section>
+    <h2 class="text-danger">1. Mở OSGeo4W Shell</h2>
+    <p class="text-info">
+        Vào thư mục đã cài <b>gdalinfo</b>: Tìm kiếm trong Start Menu gõ <b>QGIS</b>,
+        sau đó chuột phải chọn <i>Open file location</i> để đến thư mục cài đặt.
+        Từ đó, chọn <b>OSGeo4W Shell</b>.
+    </p>
+    <img src="img/Chapter1/step1.png" alt="Mở OSGeo4W Shell">
+</section>
+
+<section>
+    <h2 class="text-danger">2. Xem thông tin ảnh GeoTIFF</h2>
+    <p>
+        Ví dụ để xem thông tin ảnh <b>137_fixed.tif</b>, gõ lệnh sau trong OSGeo4W Shell:
+    </p>
+
+    <div class="code-block">
+        <button class="copy-button" onclick="copyCode(this)">Sao chép</button>
+        <pre>gdalinfo H:\NCKH\Hoc_lieu\raster\137_fixed.tif</pre>
+    </div>
+    <p class="text-warning">Kết quả sẽ hiện ra các thông số cơ bản của ảnh.</p>
+    <img src="img/Chapter1/step2.png" alt="Chạy gdalinfo">
+</section>
+
+<section>
+    <h2 class="text-danger">3. Các thông số cơ bản của ảnh</h2>
+    <h3>Thông tin chung</h3>
+    <ul>
+        <li>Định dạng: GeoTIFF (GTiff)</li>
+        <li>Kích thước ảnh: 2540 (cột) × 3029 (dòng)</li>
+        <li>Hệ tọa độ (CRS): WGS 84 / UTM Zone 48N (EPSG:32648)</li>
+        <li>Đơn vị: mét</li>
+        <li>Gốc ảnh (origin): (529605, 2365125)</li>
+        <li>Kích thước pixel: 30m × 30m</li>
+        <li>Bao phủ không gian:
+            <ul>
+                <li>Trái trên: (105°17′08″E, 21°23′17″N)</li>
+                <li>Phải dưới: (106°00′54″E, 20°33′51″N)</li>
+                <li>Trung tâm: (105°39′05″E, 20°58′36″N)</li>
+                <li>Khu vực: miền Bắc Việt Nam (gần Hà Nội)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Cấu trúc ảnh</h3>
+    <ul>
+        <li>7 band (kiểu dữ liệu: Int16, giá trị NoData = 255)</li>
+        <li>Thống kê từng band:</li>
+        <ul>
+            <li>Band 1: Min = 0, Max ≈ 2414, Mean ≈ 131</li>
+            <li>Band 2: Min = 0, Max ≈ 2633, Mean ≈ 177</li>
+            <li>Band 3: Min = 0, Max ≈ 3457, Mean ≈ 340</li>
+            <li>Band 4: Min = 0, Max ≈ 3946, Mean ≈ 314</li>
+            <li>Band 5: Min = 0, Max ≈ 6266, Mean ≈ 1357</li>
+            <li>Band 6: Min = 0, Max ≈ 7473, Mean ≈ 836</li>
+            <li>Band 7: Min = 0, Max ≈ 11946, Mean ≈ 537</li>
+        </ul>
+    </ul>
+</section>
