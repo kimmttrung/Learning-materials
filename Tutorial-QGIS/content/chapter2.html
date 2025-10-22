@@ -1,0 +1,58 @@
+<h1 class="heading">Hướng dẫn thu thập mẫu dữ liệu trong QGIS</h1>
+
+<section>
+    <h2 class="text-danger">1. Chuyển đổi hệ tọa độ (Warp Raster)</h2>
+    <p class="text-info">
+        - Gõ <b>warp</b> để mở hộp thoại <b>Raster Projections</b>.<br>
+        - <b>Target CRS:</b> chọn <b>UTM Zone 48N</b>.<br>
+        - Lưu kết quả trong file <code>ggz: VLUCD_48N</code>.<br>
+        - Chuột phải lớp <b>Ha Noi</b> → chọn <b>Export → Save Feature As</b> → lưu file ở
+        <code>qpkg: HaNoi_48N</code>.<br>
+        - Chuyển CRS về <b>UTM 48N</b> và xóa cột <b>fid</b> → <b>OK</b>.
+    </p>
+    <img src="img/Chapter2/vlucd.png" alt="Warp Raster - QGIS">
+    <img src="img/Chapter2/warp.png" alt="Warp Raster - QGIS">
+</section>
+
+<section>
+    <h2 class="text-danger">2. Cắt ảnh Raster (Clip Raster)</h2>
+    <p>
+        - <b>Input layer:</b> VLUCD_48N<br>
+        - <b>Target CRS:</b> UTM 48N<br>
+        - <b>Assign:</b> 0.00000<br>
+        - Cuối cùng lưu ở file <code>tif: HaNoi_48N_Clip</code>.
+    </p>
+    <img src="img/Chapter2/clip1.png" alt="Clip Raster - QGIS">
+    <img src="img/Chapter2/clip2.png" alt="Clip Raster - QGIS">
+</section>
+
+<section>
+    <h2 class="text-danger">3. Chuyển Raster sang Vector (Polygonize)</h2>
+    <p>
+        - <b>Name of the field:</b> classid<br>
+        - Lưu ở file <code>qpkg: HaNoi_48N_Polygon</code>.
+    </p>
+    <img src="img/Chapter2/polygon.png" alt="Polygonize Raster - QGIS">
+</section>
+
+<section>
+    <h2 class="text-danger">4. Tính diện tích và lưu mẫu</h2>
+    <p>
+        - Chuột phải file vừa tạo → chọn <b>Open Attribute Table</b>.<br>
+        - Ở thanh công cụ kính lúp, tạo thêm cột mới tên <b>area</b> rồi gõ <code>$area</code> → chọn <b>Update
+            All</b>.<br>
+        - Chuột phải chọn <b>Save Selected Feature As</b>.<br>
+        - Lưu ở file <code>qpkg: 18_Open_Water_140K</code> và xóa cột <b>fid</b>.
+    </p>
+</section>
+
+<section>
+    <h2 class="text-danger">5. Xuất dữ liệu sang Google Earth (KML)</h2>
+    <p>
+        - Chuột phải file <b>18_Open_Water_140K</b> → chọn <b>Export → Save Feature As</b>.<br>
+        - <b>Format:</b> KML<br>
+        - Lưu ở file <code>kml: 18_Open_Water_gg_earth_pro</code>.<br>
+        - <b>CRS:</b> 4326 - WGS 84
+    </p>
+    <img src="img/Chapter2/kml.png" alt="Xuất dữ liệu KML trong QGIS">
+</section>
